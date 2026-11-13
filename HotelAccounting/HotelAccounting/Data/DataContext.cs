@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using HotelAccounting.Models;
 
 namespace HotelAccounting.Data
@@ -17,12 +18,15 @@ namespace HotelAccounting.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql("Host=172.20.10.5;Port=5432;Database=HotelDB;Username=postgres;Password=123;");
+                optionsBuilder.UseNpgsql("Host=172.20.10.5;Port=5432;Database=HotelDB;Username=postgres;Password=123;")
+                    .LogTo(Console.WriteLine, LogLevel.Information) 
+                    .EnableSensitiveDataLogging(); 
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // 1. Связь Один-ко-многим: Категория -> Номера
             modelBuilder.Entity<Room>()
                 .HasOne<RoomCategory>()
                 .WithMany()
@@ -45,13 +49,6 @@ namespace HotelAccounting.Data
                 .HasOne<Service>()
                 .WithMany()
                 .HasForeignKey(ss => ss.ServiceId);
-
-            modelBuilder.Entity<Service>()
-                .Property(s => s.ServiceType)
-                .HasConversion<string>();
-
-            modelBuilder.Entity<Stay>().Ignore(s => s.GuestName);
-            modelBuilder.Entity<Stay>().Ignore(s => s.RoomName);
         }
     }
 }

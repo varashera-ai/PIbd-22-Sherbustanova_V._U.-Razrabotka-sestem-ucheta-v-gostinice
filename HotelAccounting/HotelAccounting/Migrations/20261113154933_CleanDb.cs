@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HotelAccounting.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class CleanDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,10 +18,10 @@ namespace HotelAccounting.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    FullName = table.Column<string>(type: "text", nullable: false),
-                    PassportNumber = table.Column<string>(type: "text", nullable: false),
-                    Phone = table.Column<string>(type: "text", nullable: false),
-                    IsRegularClient = table.Column<bool>(type: "boolean", nullable: false)
+                    fullname = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
+                    passportnumber = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    phone = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    isregularclient = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -34,9 +34,9 @@ namespace HotelAccounting.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Capacity = table.Column<int>(type: "integer", nullable: false),
-                    PricePerNight = table.Column<decimal>(type: "numeric", nullable: false)
+                    name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    capacity = table.Column<int>(type: "integer", nullable: false),
+                    pricepernight = table.Column<decimal>(type: "numeric", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -49,9 +49,9 @@ namespace HotelAccounting.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Price = table.Column<decimal>(type: "numeric", nullable: false),
-                    ServiceType = table.Column<int>(type: "integer", nullable: false)
+                    name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    price = table.Column<decimal>(type: "numeric", nullable: false),
+                    servicetype = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -64,11 +64,11 @@ namespace HotelAccounting.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    GuestId = table.Column<int>(type: "integer", nullable: false),
-                    RoomId = table.Column<int>(type: "integer", nullable: false),
-                    CheckInDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CheckOutDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    TotalPaid = table.Column<decimal>(type: "numeric", nullable: false)
+                    guestid = table.Column<int>(type: "integer", nullable: false),
+                    roomid = table.Column<int>(type: "integer", nullable: false),
+                    checkindate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    checkoutdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    totalpaid = table.Column<decimal>(type: "numeric", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -81,17 +81,17 @@ namespace HotelAccounting.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    GuestId = table.Column<int>(type: "integer", nullable: false),
-                    RoomId = table.Column<int>(type: "integer", nullable: false),
-                    CheckInDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CheckOutDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    guestid = table.Column<int>(type: "integer", nullable: false),
+                    roomid = table.Column<int>(type: "integer", nullable: false),
+                    checkindate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    checkoutdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Bookings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Bookings_Guests_GuestId",
-                        column: x => x.GuestId,
+                        name: "FK_Bookings_Guests_guestid",
+                        column: x => x.guestid,
                         principalTable: "Guests",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -103,17 +103,17 @@ namespace HotelAccounting.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    RoomNumber = table.Column<int>(type: "integer", nullable: false),
-                    Floor = table.Column<int>(type: "integer", nullable: false),
-                    Status = table.Column<int>(type: "integer", nullable: false),
-                    CategoryId = table.Column<int>(type: "integer", nullable: false)
+                    roomnumber = table.Column<int>(type: "integer", nullable: false),
+                    floor = table.Column<int>(type: "integer", nullable: false),
+                    status = table.Column<int>(type: "integer", nullable: false),
+                    categoryid = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Rooms", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Rooms_RoomCategories_CategoryId",
-                        column: x => x.CategoryId,
+                        name: "FK_Rooms_RoomCategories_categoryid",
+                        column: x => x.categoryid,
                         principalTable: "RoomCategories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -125,46 +125,46 @@ namespace HotelAccounting.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    StayId = table.Column<int>(type: "integer", nullable: false),
-                    ServiceId = table.Column<int>(type: "integer", nullable: false),
-                    Quantity = table.Column<int>(type: "integer", nullable: false)
+                    stayid = table.Column<int>(type: "integer", nullable: false),
+                    serviceid = table.Column<int>(type: "integer", nullable: false),
+                    quantity = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_StayServices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_StayServices_Services_ServiceId",
-                        column: x => x.ServiceId,
+                        name: "FK_StayServices_Services_serviceid",
+                        column: x => x.serviceid,
                         principalTable: "Services",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_StayServices_Stays_StayId",
-                        column: x => x.StayId,
+                        name: "FK_StayServices_Stays_stayid",
+                        column: x => x.stayid,
                         principalTable: "Stays",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bookings_GuestId",
+                name: "IX_Bookings_guestid",
                 table: "Bookings",
-                column: "GuestId");
+                column: "guestid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rooms_CategoryId",
+                name: "IX_Rooms_categoryid",
                 table: "Rooms",
-                column: "CategoryId");
+                column: "categoryid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StayServices_ServiceId",
+                name: "IX_StayServices_serviceid",
                 table: "StayServices",
-                column: "ServiceId");
+                column: "serviceid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StayServices_StayId",
+                name: "IX_StayServices_stayid",
                 table: "StayServices",
-                column: "StayId");
+                column: "stayid");
         }
 
         /// <inheritdoc />

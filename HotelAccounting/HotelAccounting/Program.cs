@@ -8,7 +8,7 @@ using HotelAccounting.Repositories.Interfaces;
 using HotelAccounting.Repositories.Implementations;
 using Unity.Lifetime;
 using HotelAccounting.Repositories;
-using HotelAccounting.Data; // <-- днаюбкемн дкъ DATACONTEXT
+using HotelAccounting.Data;
 
 namespace HotelAccounting;
 

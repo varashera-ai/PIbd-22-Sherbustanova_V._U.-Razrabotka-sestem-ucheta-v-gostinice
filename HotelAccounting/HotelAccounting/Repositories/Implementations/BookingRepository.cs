@@ -20,18 +20,14 @@ internal class BookingRepository : IBookingRepository
 
     public void CreateBooking(Booking booking)
     {
-        _logger.LogInformation("Добавление бронирования (с транзакцией)");
-
-        using var transaction = _context.Database.BeginTransaction();
+        _logger.LogInformation("Добавление бронирования");
         try
         {
             _context.Bookings.Add(booking);
             _context.SaveChanges();
-            transaction.Commit();
         }
         catch (Exception ex)
         {
-            transaction.Rollback();
             _logger.LogError(ex, "Ошибка при добавлении бронирования");
             throw;
         }

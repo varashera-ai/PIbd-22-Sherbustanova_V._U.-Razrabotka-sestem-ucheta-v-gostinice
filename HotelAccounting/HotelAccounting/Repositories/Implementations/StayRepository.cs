@@ -24,12 +24,10 @@ internal class StayRepository : IStayRepository
         _logger.LogDebug("Объект: {json}", JsonConvert.SerializeObject(stay));
 
         using var transaction = _context.Database.BeginTransaction();
-
         try
         {
             _context.Stays.Add(stay);
             _context.SaveChanges();
-
             transaction.Commit();
         }
         catch (Exception ex)

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HotelAccounting.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20261113123841_FixServiceType")]
-    partial class FixServiceType
+    [Migration("20261113154933_CleanDb")]
+    partial class CleanDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,16 +34,20 @@ namespace HotelAccounting.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CheckInDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("checkindate");
 
                     b.Property<DateTime>("CheckOutDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("checkoutdate");
 
                     b.Property<int>("GuestId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("guestid");
 
                     b.Property<int>("RoomId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("roomid");
 
                     b.HasKey("Id");
 
@@ -62,18 +66,25 @@ namespace HotelAccounting.Migrations
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("fullname");
 
                     b.Property<bool>("IsRegularClient")
-                        .HasColumnType("boolean");
+                        .HasColumnType("boolean")
+                        .HasColumnName("isregularclient");
 
                     b.Property<string>("PassportNumber")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("passportnumber");
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("phone");
 
                     b.HasKey("Id");
 
@@ -89,16 +100,20 @@ namespace HotelAccounting.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CategoryId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("categoryid");
 
                     b.Property<int>("Floor")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("floor");
 
                     b.Property<int>("RoomNumber")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("roomnumber");
 
                     b.Property<int>("Status")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("status");
 
                     b.HasKey("Id");
 
@@ -116,14 +131,18 @@ namespace HotelAccounting.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Capacity")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("capacity");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("name");
 
                     b.Property<decimal>("PricePerNight")
-                        .HasColumnType("numeric");
+                        .HasColumnType("numeric")
+                        .HasColumnName("pricepernight");
 
                     b.HasKey("Id");
 
@@ -140,14 +159,17 @@ namespace HotelAccounting.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("name");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
+                        .HasColumnType("numeric")
+                        .HasColumnName("price");
 
-                    b.Property<string>("ServiceType")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("ServiceType")
+                        .HasColumnType("integer")
+                        .HasColumnName("servicetype");
 
                     b.HasKey("Id");
 
@@ -163,19 +185,24 @@ namespace HotelAccounting.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CheckInDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("checkindate");
 
                     b.Property<DateTime?>("CheckOutDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("checkoutdate");
 
                     b.Property<int>("GuestId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("guestid");
 
                     b.Property<int>("RoomId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("roomid");
 
                     b.Property<decimal>("TotalPaid")
-                        .HasColumnType("numeric");
+                        .HasColumnType("numeric")
+                        .HasColumnName("totalpaid");
 
                     b.HasKey("Id");
 
@@ -191,13 +218,16 @@ namespace HotelAccounting.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Quantity")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("quantity");
 
                     b.Property<int>("ServiceId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("serviceid");
 
                     b.Property<int>("StayId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("stayid");
 
                     b.HasKey("Id");
 

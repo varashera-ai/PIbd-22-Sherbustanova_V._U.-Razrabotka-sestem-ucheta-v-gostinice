@@ -15,6 +15,7 @@ namespace HotelAccounting
             InitializeComponent();
             _container = container ?? throw new ArgumentNullException(nameof(container));
             _bookingRepository = bookingRepository ?? throw new ArgumentNullException(nameof(bookingRepository));
+            this.Load += FormBookings_Load;
         }
 
         private void FormBookings_Load(object sender, EventArgs e)
