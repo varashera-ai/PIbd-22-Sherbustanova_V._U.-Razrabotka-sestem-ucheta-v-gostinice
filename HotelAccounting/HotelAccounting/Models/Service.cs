@@ -4,10 +4,12 @@ namespace HotelAccounting.Models;
 
 public class Service
 {
-    public int Id { get; private set; }
-    public string Name { get; private set; } = string.Empty;
-    public decimal Price { get; private set; }
-    public AdditionalServices ServiceType { get; private set; }
+    public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public decimal Price { get; set; }
+    public AdditionalServices ServiceType { get; set; }
+
+    public Service() { }
 
     public static Service CreateEntity(int id, string name, decimal price, AdditionalServices serviceType)
     {

@@ -2,11 +2,13 @@ namespace HotelAccounting.Models;
 
 public class Guest
 {
-    public int Id { get; private set; }
-    public string FullName { get; private set; } = string.Empty;
-    public string PassportNumber { get; private set; } = string.Empty;
-    public string Phone { get; private set; } = string.Empty;
-    public bool IsRegularClient { get; private set; }
+    public int Id { get; set; }
+    public string FullName { get; set; } = string.Empty;
+    public string PassportNumber { get; set; } = string.Empty;
+    public string Phone { get; set; } = string.Empty;
+    public bool IsRegularClient { get; set; }
+
+    public Guest() { }
 
     public static Guest CreateEntity(int id, string fullName, string passportNumber, string phone, bool isRegularClient)
     {

@@ -4,11 +4,13 @@ namespace HotelAccounting.Models;
 
 public class Booking
 {
-    public int Id { get; private set; }
-    public int GuestId { get; private set; }
-    public int RoomId { get; private set; }
-    public DateTime CheckInDate { get; private set; }
-    public DateTime CheckOutDate { get; private set; }
+    public int Id { get; set; }
+    public int GuestId { get; set; }
+    public int RoomId { get; set; }
+    public DateTime CheckInDate { get; set; }
+    public DateTime CheckOutDate { get; set; }
+
+    public Booking() { }
 
     public static Booking CreateOperation(int id, int guestId, int roomId, DateTime checkInDate, DateTime checkOutDate)
     {
