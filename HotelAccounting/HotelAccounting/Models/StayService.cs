@@ -1,11 +1,28 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace HotelAccounting.Models;
 
 public class StayService
 {
-    public int Id { get; private set; }
-    public int StayId { get; private set; }
-    public int ServiceId { get; private set; }
-    public int Quantity { get; private set; }
+    [Key]
+    public int Id { get; set; }
+
+    [Required]
+    [ForeignKey("Stay")]
+    [Column("stayid")]
+    public int StayId { get; set; }
+
+    [Required]
+    [ForeignKey("Service")]
+    [Column("serviceid")]
+    public int ServiceId { get; set; }
+
+    [Required]
+    [Column("quantity")]
+    public int Quantity { get; set; }
+
+    public StayService() { }
 
     public static StayService CreateElement(int id, int stayId, int serviceId, int quantity)
     {

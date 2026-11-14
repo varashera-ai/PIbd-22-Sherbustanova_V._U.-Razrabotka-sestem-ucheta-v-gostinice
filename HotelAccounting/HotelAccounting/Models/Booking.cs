@@ -1,14 +1,33 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelAccounting.Models;
 
 public class Booking
 {
-    public int Id { get; private set; }
-    public int GuestId { get; private set; }
-    public int RoomId { get; private set; }
-    public DateTime CheckInDate { get; private set; }
-    public DateTime CheckOutDate { get; private set; }
+    [Key]
+    public int Id { get; set; }
+
+    [Required]
+    [ForeignKey("Guest")]
+    [Column("guestid")]
+    public int GuestId { get; set; }
+
+    [Required]
+    [ForeignKey("Room")]
+    [Column("roomid")]
+    public int RoomId { get; set; }
+
+    [Required]
+    [Column("checkindate")]
+    public DateTime CheckInDate { get; set; }
+
+    [Required]
+    [Column("checkoutdate")]
+    public DateTime CheckOutDate { get; set; }
+
+    public Booking() { }
 
     public static Booking CreateOperation(int id, int guestId, int roomId, DateTime checkInDate, DateTime checkOutDate)
     {

@@ -23,7 +23,6 @@ namespace HotelAccounting
                     textBoxName.Text = service.Name;
                     numericUpDownPrice.Value = service.Price;
 
-                    // Проходимся по всем значениям перечисления и ставим галочки, если флаг установлен
                     foreach (AdditionalServices elem in Enum.GetValues(typeof(AdditionalServices)))
                     {
                         if (elem != AdditionalServices.None && (elem & service.ServiceType) != 0)
@@ -46,7 +45,6 @@ namespace HotelAccounting
             InitializeComponent();
             _serviceRepository = serviceRepository ?? throw new ArgumentNullException(nameof(serviceRepository));
 
-            // Заполняем CheckedListBox значениями из перечисления
             foreach (var elem in Enum.GetValues(typeof(AdditionalServices)))
             {
                 if ((AdditionalServices)elem != AdditionalServices.None)
@@ -65,7 +63,6 @@ namespace HotelAccounting
                     throw new Exception("Имеются незаполненные поля");
                 }
 
-                // Собираем флаги обратно из галочек
                 AdditionalServices serviceType = AdditionalServices.None;
                 foreach (var item in checkedListBoxServiceType.CheckedItems)
                 {

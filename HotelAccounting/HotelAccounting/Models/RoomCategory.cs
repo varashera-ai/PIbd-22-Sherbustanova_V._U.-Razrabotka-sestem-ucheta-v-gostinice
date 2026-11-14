@@ -1,11 +1,27 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace HotelAccounting.Models;
 
 public class RoomCategory
 {
-    public int Id { get; private set; }
-    public string Name { get; private set; } = string.Empty;
-    public int Capacity { get; private set; }
-    public decimal PricePerNight { get; private set; }
+    [Key]
+    public int Id { get; set; }
+
+    [Required]
+    [MaxLength(100)]
+    [Column("name")]
+    public string Name { get; set; } = string.Empty;
+
+    [Required]
+    [Column("capacity")]
+    public int Capacity { get; set; }
+
+    [Required]
+    [Column("pricepernight")]
+    public decimal PricePerNight { get; set; }
+
+    public RoomCategory() { }
 
     public static RoomCategory CreateEntity(int id, string name, int capacity, decimal pricePerNight)
     {

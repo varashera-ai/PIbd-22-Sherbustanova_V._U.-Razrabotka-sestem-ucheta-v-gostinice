@@ -10,7 +10,7 @@ namespace HotelAccounting
     {
         private readonly IStayRepository _stayRepository;
         private readonly IGuestRepository _guestRepository;
-        private readonly IRoomRepository _roomRepository; 
+        private readonly IRoomRepository _roomRepository;
         private readonly IServiceRepository _serviceRepository;
 
         public FormStay(IStayRepository stayRepository, IGuestRepository guestRepository,
@@ -22,19 +22,31 @@ namespace HotelAccounting
             _roomRepository = roomRepository ?? throw new ArgumentNullException(nameof(roomRepository));
             _serviceRepository = serviceRepository ?? throw new ArgumentNullException(nameof(serviceRepository));
 
-            comboBoxGuest.DataSource = _guestRepository.ReadGuests();
-            comboBoxGuest.DisplayMember = "FullName";
-            comboBoxGuest.ValueMember = "Id";
+            this.Load += FormStay_Load;
+        }
 
-            comboBoxRoom.DataSource = _roomRepository.ReadRooms();
-            comboBoxRoom.DisplayMember = "RoomNumber";
-            comboBoxRoom.ValueMember = "Id";
+        private void FormStay_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                comboBoxGuest.DataSource = _guestRepository.ReadGuests();
+                comboBoxGuest.DisplayMember = "FullName";
+                comboBoxGuest.ValueMember = "Id";
 
-            var services = _serviceRepository.ReadServices();
-            var columnService = (DataGridViewComboBoxColumn)dataGridViewServices.Columns["ColumnService"];
-            columnService.DataSource = services;
-            columnService.DisplayMember = "Name";
-            columnService.ValueMember = "Id";
+                comboBoxRoom.DataSource = _roomRepository.ReadRooms();
+                comboBoxRoom.DisplayMember = "RoomNumber";
+                comboBoxRoom.ValueMember = "Id";
+
+                var services = _serviceRepository.ReadServices();
+                var columnService = (DataGridViewComboBoxColumn)dataGridViewServices.Columns["ColumnService"];
+                columnService.DataSource = services;
+                columnService.DisplayMember = "Name";
+                columnService.ValueMember = "Id";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка при загрузке данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -50,6 +62,7 @@ namespace HotelAccounting
                     (int)comboBoxGuest.SelectedValue!,
                     (int)comboBoxRoom.SelectedValue!,
                     stayServices);
+                stay.CheckInDate = DateTime.UtcNow;
 
                 _stayRepository.CreateStay(stay);
                 Close();

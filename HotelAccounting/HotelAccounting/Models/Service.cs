@@ -1,13 +1,28 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using HotelAccounting.Enums;
 
 namespace HotelAccounting.Models;
 
 public class Service
 {
-    public int Id { get; private set; }
-    public string Name { get; private set; } = string.Empty;
-    public decimal Price { get; private set; }
-    public AdditionalServices ServiceType { get; private set; }
+    [Key]
+    public int Id { get; set; }
+
+    [Required]
+    [MaxLength(100)]
+    [Column("name")]
+    public string Name { get; set; } = string.Empty;
+
+    [Required]
+    [Column("price")]
+    public decimal Price { get; set; }
+
+    [Required]
+    [Column("servicetype")]
+    public AdditionalServices ServiceType { get; set; }
+
+    public Service() { }
 
     public static Service CreateEntity(int id, string name, decimal price, AdditionalServices serviceType)
     {
