@@ -30,7 +30,6 @@ internal class GuestRepository : IGuestRepository
         _logger.LogInformation("Редактирование гостя");
         try
         {
-            // Отвязываем старый объект из памяти, чтобы не было конфликта
             var existing = _context.Guests.Find(guest.Id);
             if (existing != null)
             {

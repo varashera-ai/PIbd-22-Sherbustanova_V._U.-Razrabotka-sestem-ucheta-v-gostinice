@@ -26,7 +26,6 @@ internal static class Program
         var container = new UnityContainer();
 
         container.AddExtension(new LoggingExtension(CreateLoggerFactory()));
-        container.RegisterType<IConnectionString, DbConnectionString>(new SingletonLifetimeManager());
         container.RegisterType<DataContext>(new TransientLifetimeManager());
 
         container.RegisterType<IRoomCategoryRepository, RoomCategoryRepository>();

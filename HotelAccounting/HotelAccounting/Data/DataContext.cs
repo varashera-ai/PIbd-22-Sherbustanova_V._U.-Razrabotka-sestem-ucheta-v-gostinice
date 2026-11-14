@@ -18,7 +18,7 @@ namespace HotelAccounting.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql("Host=172.20.10.5;Port=5432;Database=HotelDB;Username=postgres;Password=123;")
+                optionsBuilder.UseNpgsql("Host=192.168.2.75;Port=5432;Database=HotelDB;Username=postgres;Password=123;")
                     .LogTo(Console.WriteLine, LogLevel.Information) 
                     .EnableSensitiveDataLogging(); 
             }
@@ -26,7 +26,6 @@ namespace HotelAccounting.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // 1. Связь Один-ко-многим: Категория -> Номера
             modelBuilder.Entity<Room>()
                 .HasOne<RoomCategory>()
                 .WithMany()

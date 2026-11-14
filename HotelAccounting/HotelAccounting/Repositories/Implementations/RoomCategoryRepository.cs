@@ -30,7 +30,6 @@ internal class RoomCategoryRepository : IRoomCategoryRepository
         _logger.LogInformation("Редактирование объекта");
         try
         {
-            // Отвязываем старый объект из памяти
             var existing = _context.RoomCategories.Find(category.Id);
             if (existing != null)
             {
